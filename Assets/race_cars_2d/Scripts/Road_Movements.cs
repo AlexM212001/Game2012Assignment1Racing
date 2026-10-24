@@ -2,21 +2,34 @@ using UnityEngine;
 
 public class Road_Movements : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 6f;
+    [SerializeField] private float baseMoveSpeed = 6f;
     [SerializeField] private float resetY = -20f;
     [SerializeField] private float recycleHeight = 40f;
 
+    private float stackedSpeedBonus = 0f;
+
     private void Update()
     {
-        var position = transform.position;
-        position.y -= moveSpeed * Time.deltaTime;
+        float currentMoveSpeed = baseMoveSpeed + stackedSpeedBonus;
 
-        // Keep movement smooth by preserving overshoot at reset.
+        Vector3 position = transform.position;
+        position.y -= currentMoveSpeed * Time.deltaTime;
+
         while (position.y <= resetY)
         {
             position.y += recycleHeight;
         }
 
         transform.position = position;
+    }
+
+    public void AddSpeedBoost(float amount)
+    {
+        if (amount <= 0f)
+        {
+            return;
+        }
+
+        stackedSpeedBonus += amount;
     }
 }

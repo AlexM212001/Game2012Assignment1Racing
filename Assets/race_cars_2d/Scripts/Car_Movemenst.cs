@@ -15,4 +15,13 @@ public class Car_Movemenst : MonoBehaviour
     {
         transform.position -= new Vector3(0, speed * Time.deltaTime, 0); // Move the car downwards
     }
+
+    //destroy car when it goes y position -6
+    private void OnBecameInvisible()
+    {
+        if (transform.position.y < -6f)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
