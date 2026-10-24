@@ -41,4 +41,16 @@ public class PlayerMovements : MonoBehaviour
 
         transform.position = pos;
     }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Traffic"))
+        {
+            // Handle collision with traffic
+            Debug.Log("Collided with traffic!");
+            //Destroy player game object
+            Destroy(gameObject);
+        }
+    }
 }
