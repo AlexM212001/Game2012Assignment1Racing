@@ -14,8 +14,10 @@ public class PlayerMovements : MonoBehaviour
     private float baseFacingAngle = 180f;
 
     public GameObject gameOverPanel;
+    [SerializeField] private AudioClip hitTrafficClip;
+    [SerializeField][Range(0f, 1f)] private float hitTrafficVolume = 1f;
 
-  void Start()
+    void Start()
     {
        
             gameOverPanel.SetActive(false);
@@ -77,6 +79,11 @@ public class PlayerMovements : MonoBehaviour
         {
             Debug.Log("Collided with traffic!");
             Destroy(gameObject);
+            if (hitTrafficClip != null)
+            {
+                AudioSource.PlayClipAtPoint(hitTrafficClip, transform.position, hitTrafficVolume);
+            }
+
             if (gameOverPanel != null)
             {
                 gameOverPanel.SetActive(true);

@@ -109,6 +109,8 @@ MonoBehaviour:
   speed: 5
   playerSpeedBoostPerPickup: 0.4
   roadSpeedBoostPerPickup: 0.4
+  collectClip: {fileID: 8300000, guid: 2577710ba2fedff49afe28b2b3710e9b, type: 3}
+  collectVolume: 1
 --- !u!58 &4847842992464306659
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -5,6 +5,8 @@ public class Tires : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private float playerSpeedBoostPerPickup = 0.35f;
     [SerializeField] private float roadSpeedBoostPerPickup = 0.35f;
+    [SerializeField] private AudioClip collectClip;
+    [SerializeField] [Range(0f, 1f)] private float collectVolume = 1f;
 
     private Score_Manager scoreManager;
 
@@ -24,6 +26,11 @@ public class Tires : MonoBehaviour
         if (player == null)
         {
             return;
+        }
+
+        if (collectClip != null)
+        {
+            AudioSource.PlayClipAtPoint(collectClip, transform.position, collectVolume);
         }
 
         player.AddSpeedBoost(playerSpeedBoostPerPickup);
