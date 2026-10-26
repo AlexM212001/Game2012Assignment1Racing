@@ -13,6 +13,15 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float maxTiltAngle = 20f;
     private float baseFacingAngle = 180f;
 
+    public GameObject gameOverPanel;
+
+  void Start()
+    {
+       
+            gameOverPanel.SetActive(false);
+        
+    }
+
     private float stackedSpeedBonus = 0f;
 
     private void Update()
@@ -61,12 +70,17 @@ public class PlayerMovements : MonoBehaviour
         stackedSpeedBonus += amount;
     }
 
+    // player collides with traffic, destroy the player and show game over panel
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Traffic"))
         {
             Debug.Log("Collided with traffic!");
             Destroy(gameObject);
+            if (gameOverPanel != null)
+            {
+                gameOverPanel.SetActive(true);
+            }
         }
     }
 }

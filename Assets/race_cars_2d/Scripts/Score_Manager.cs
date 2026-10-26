@@ -1,33 +1,72 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Score_Manager : MonoBehaviour
 {
-
     public int score = 0;
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text highScoreText;
+    [SerializeField] private TMP_Text lastScoreText;
+    public int HighScore;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static int LastScore;
+
+
+
+    private void Start()
     {
+        UpdateScoreText();
+       
         StartCoroutine(ScoreCoroutine());
+        StartCoroutine(Reload());
+        HighScore = PlayerPrefs.GetInt("HighScore", 0);
+
+      highScoreText.text = "High Score: " + HighScore.ToString();
+        lastScoreText.text = "Last Score: " + LastScore.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddScore(int amount)
     {
-        scoreText.text = score.ToString(); // Update the score text with the current score
+        if (amount <= 0)
+        {
+            return;
+        }
+
+        score += amount;
+        UpdateScoreText();
     }
 
-    IEnumerator ScoreCoroutine()
+    private void UpdateScoreText()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = score.ToString();
+        }
+
+        if (score > HighScore)
+        {
+            HighScore = score;
+            PlayerPrefs.SetInt("HighScore", HighScore);
+            Debug.Log("New High Score: " + HighScore);
+        }
+    }
+
+    private IEnumerator ScoreCoroutine()
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.8f); // Wait for 0.8 seconds
-            score++; // Increment the score by 1
-            Debug.Log("Score: " + score); // Print the score to the console
+            yield return new WaitForSeconds(0.8f);
+            AddScore(1);
+            LastScore = score;
+
         }
+    }
+
+    IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(10);
+        SceneManager.LoadScene("Game");
     }
 }

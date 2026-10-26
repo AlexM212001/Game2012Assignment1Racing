@@ -6,6 +6,13 @@ public class Tires : MonoBehaviour
     [SerializeField] private float playerSpeedBoostPerPickup = 0.35f;
     [SerializeField] private float roadSpeedBoostPerPickup = 0.35f;
 
+    private Score_Manager scoreManager;
+
+    private void Awake()
+    {
+        scoreManager = FindObjectOfType<Score_Manager>();
+    }
+
     private void Update()
     {
         transform.position -= new Vector3(0f, speed * Time.deltaTime, 0f);
@@ -25,6 +32,11 @@ public class Tires : MonoBehaviour
         for (int i = 0; i < roads.Length; i++)
         {
             roads[i].AddSpeedBoost(roadSpeedBoostPerPickup);
+        }
+
+        if (scoreManager != null)
+        {
+            scoreManager.AddScore(5);
         }
 
         Destroy(gameObject);
