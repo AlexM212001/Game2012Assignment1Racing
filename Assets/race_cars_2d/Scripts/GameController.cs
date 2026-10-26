@@ -29,18 +29,5 @@ public class GameController : MonoBehaviour
     }
 
 
-    public void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 
-    public void MainMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
 }

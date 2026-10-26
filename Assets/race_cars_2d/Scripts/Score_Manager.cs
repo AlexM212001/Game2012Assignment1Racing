@@ -20,7 +20,7 @@ public class Score_Manager : MonoBehaviour
         UpdateScoreText();
        
         StartCoroutine(ScoreCoroutine());
-        StartCoroutine(Reload());
+       
         HighScore = PlayerPrefs.GetInt("HighScore", 0);
 
       highScoreText.text = "High Score: " + HighScore.ToString();
@@ -64,9 +64,5 @@ public class Score_Manager : MonoBehaviour
         }
     }
 
-    IEnumerator Reload()
-    {
-        yield return new WaitForSeconds(10);
-        SceneManager.LoadScene("Game");
-    }
+
 }
